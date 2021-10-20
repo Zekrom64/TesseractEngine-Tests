@@ -1,0 +1,3 @@
+[submodule "TesseractEngine"]
+	path = TesseractEngine
+	url = https://github.com/Zekrom64/TesseractEngine
