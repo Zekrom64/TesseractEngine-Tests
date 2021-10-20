@@ -5,6 +5,14 @@ VisualStudioVersion = 16.0.31624.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TesseractEngine-Tests-Core", "TesseractEngine-Tests-Core\TesseractEngine-Tests-Core.csproj", "{0C939FA8-26DA-4B30-B66F-21D8B31B61B2}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TesseractEngine-Core", "TesseractEngine\TesseractEngine-Core\TesseractEngine-Core.csproj", "{A905E42C-E56E-493B-8BB5-63B4E04584C8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TesseractEngine-GLFW", "TesseractEngine\TesseractEngine-GLFW\TesseractEngine-GLFW.csproj", "{BA6923A8-0332-4EBF-8D46-616CE99ECF5D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TesseractEngine-Vulkan", "TesseractEngine\TesseractEngine-Vulkan\TesseractEngine-Vulkan.csproj", "{138C2530-F181-45C3-97E6-B560B87DE834}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TesseractEngine-Tests-All", "TesseractEngine-Tests-All\TesseractEngine-Tests-All.csproj", "{016CD4BB-F593-4B35-92BC-E6623ECA8111}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +23,22 @@ Global
 		{0C939FA8-26DA-4B30-B66F-21D8B31B61B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0C939FA8-26DA-4B30-B66F-21D8B31B61B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0C939FA8-26DA-4B30-B66F-21D8B31B61B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A905E42C-E56E-493B-8BB5-63B4E04584C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A905E42C-E56E-493B-8BB5-63B4E04584C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A905E42C-E56E-493B-8BB5-63B4E04584C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A905E42C-E56E-493B-8BB5-63B4E04584C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA6923A8-0332-4EBF-8D46-616CE99ECF5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA6923A8-0332-4EBF-8D46-616CE99ECF5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA6923A8-0332-4EBF-8D46-616CE99ECF5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA6923A8-0332-4EBF-8D46-616CE99ECF5D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{138C2530-F181-45C3-97E6-B560B87DE834}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{138C2530-F181-45C3-97E6-B560B87DE834}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{138C2530-F181-45C3-97E6-B560B87DE834}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{138C2530-F181-45C3-97E6-B560B87DE834}.Release|Any CPU.Build.0 = Release|Any CPU
+		{016CD4BB-F593-4B35-92BC-E6623ECA8111}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{016CD4BB-F593-4B35-92BC-E6623ECA8111}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{016CD4BB-F593-4B35-92BC-E6623ECA8111}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{016CD4BB-F593-4B35-92BC-E6623ECA8111}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
