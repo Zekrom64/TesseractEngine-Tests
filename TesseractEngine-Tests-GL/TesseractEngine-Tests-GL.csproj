@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>Tesseract.Tests.OpenGL</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TesseractEngine-Tests-GLFW\TesseractEngine-Tests-GLFW.csproj" />
+    <ProjectReference Include="..\TesseractEngine\TesseractEngine-GLFW\TesseractEngine-GLFW.csproj" />
+    <ProjectReference Include="..\TesseractEngine\TesseractEngine-GL\TesseractEngine-GL.csproj" />
+  </ItemGroup>
+
+</Project>

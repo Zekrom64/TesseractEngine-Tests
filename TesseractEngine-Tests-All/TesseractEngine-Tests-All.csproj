@@ -6,4 +6,15 @@
     <RootNamespace>Tesseract.Tests</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TesseractEngine-Tests-GLFW\TesseractEngine-Tests-GLFW.csproj" />
+    <ProjectReference Include="..\TesseractEngine-Tests-GL\TesseractEngine-Tests-GL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="lib\win64\glfw3.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

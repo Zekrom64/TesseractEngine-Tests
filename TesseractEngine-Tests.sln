@@ -13,6 +13,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TesseractEngine-Vulkan", "T
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TesseractEngine-Tests-All", "TesseractEngine-Tests-All\TesseractEngine-Tests-All.csproj", "{016CD4BB-F593-4B35-92BC-E6623ECA8111}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TesseractEngine-Tests-GLFW", "TesseractEngine-Tests-GLFW\TesseractEngine-Tests-GLFW.csproj", "{45375AA2-90E4-4660-9FBD-5DC8F70150BF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TesseractEngine-GL", "TesseractEngine\TesseractEngine-GL\TesseractEngine-GL.csproj", "{2F41B8AE-6588-46DF-B119-7418DE3CD3B2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TesseractEngine-Tests-GL", "TesseractEngine-Tests-GL\TesseractEngine-Tests-GL.csproj", "{1D2E0898-C0F5-4E2A-A3FD-ABD4CDA8568C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +45,18 @@ Global
 		{016CD4BB-F593-4B35-92BC-E6623ECA8111}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{016CD4BB-F593-4B35-92BC-E6623ECA8111}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{016CD4BB-F593-4B35-92BC-E6623ECA8111}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45375AA2-90E4-4660-9FBD-5DC8F70150BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45375AA2-90E4-4660-9FBD-5DC8F70150BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45375AA2-90E4-4660-9FBD-5DC8F70150BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45375AA2-90E4-4660-9FBD-5DC8F70150BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F41B8AE-6588-46DF-B119-7418DE3CD3B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F41B8AE-6588-46DF-B119-7418DE3CD3B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F41B8AE-6588-46DF-B119-7418DE3CD3B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F41B8AE-6588-46DF-B119-7418DE3CD3B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D2E0898-C0F5-4E2A-A3FD-ABD4CDA8568C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D2E0898-C0F5-4E2A-A3FD-ABD4CDA8568C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D2E0898-C0F5-4E2A-A3FD-ABD4CDA8568C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D2E0898-C0F5-4E2A-A3FD-ABD4CDA8568C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
