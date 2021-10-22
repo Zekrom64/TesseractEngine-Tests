@@ -36,8 +36,9 @@ namespace Tesseract.Tests.Vulkan {
 
 			HashSet<string> layers = new(), extensions = new();
 			extensions.Add(KHRSurface.ExtensionName);
+			extensions.Add(EXTDebugReport.ExtensionName);
 			layers.Add("VK_LAYER_KHRONOS_validation");
-			layers.Add("VK_LAYER_LUNARG_api_dump");
+			//layers.Add("VK_LAYER_LUNARG_api_dump");
 
 			foreach (string ext in GLFW3.RequiredInstanceExtensions) extensions.Add(ext);
 
@@ -165,6 +166,15 @@ namespace Tesseract.Tests.Vulkan {
 
 			VK vk = new(new GLFWVulkanLoader());
 			using VKInstance instance = CreateInstance(vk);
+			using VKDebugReportCallbackEXT debugReportCallback = instance.CreateDebugReportCallbackEXT(new VKDebugReportCallbackCreateInfoEXT() {
+				Type = VKStructureType.DEBUG_REPORT_CALLBACK_CREATE_INFO_EXT,
+				Flags = VKDebugReportFlagBitsEXT.Error | VKDebugReportFlagBitsEXT.Warning | VKDebugReportFlagBitsEXT.PerformanceWarning,
+				Callback = (VKDebugReportFlagBitsEXT flags, VKDebugReportObjectTypeEXT objectType, ulong obj, nuint location, int messageCode, string layerPrefix, string message, IntPtr userData) => {
+					if ((flags & VKDebugReportFlagBitsEXT.Error) != 0) Console.Error.WriteLine($"[Vulkan][{layerPrefix}]: {message}");
+					else Console.WriteLine($"[Vulkan][{layerPrefix}]: {message}");
+					return false;
+				}
+			});
 			using VKSurfaceKHR surface = CreateSurface(instance, window);
 
 			using VKDevice device = CreateDevice(instance, surface, out VKPhysicalDevice physicalDevice, out VKQueue queue, out int queueFamily);
