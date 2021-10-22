@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Tesseract.Tests.GLFW;
 using Tesseract.Tests.OpenGL;
+using Tesseract.Tests.Vulkan;
 
 namespace Tesseract.Tests {
 	static class Program {
@@ -19,7 +20,9 @@ namespace Tesseract.Tests {
 				new() { TestFunc = TestGLFW.TestRaw, Name = "GLFW - Raw API" },
 				new() { TestFunc = TestGLFW.TestServices, Name = "GLFW - Services" },
 
-				new() { TestFunc = TestGL.TestRaw, Name = "OpenGL - Raw API" }
+				new() { TestFunc = TestGL.TestRaw, Name = "OpenGL - Raw API" },
+
+				new() { TestFunc = TestVulkan.TestRaw, Name = "Vulkan - Raw API" }
 			};
 			int ntests = 0;
 			int successes = 0;

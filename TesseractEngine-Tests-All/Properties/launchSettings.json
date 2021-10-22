@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "TesseractEngine-Tests-All": {
+      "commandName": "Project",
+      "nativeDebugging": true
+    }
+  }
+}

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31624.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TesseractEngine-Tests-Core", "TesseractEngine-Tests-Core\TesseractEngine-Tests-Core.csproj", "{0C939FA8-26DA-4B30-B66F-21D8B31B61B2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TesseractEngine-Tests-Core", "TesseractEngine-Tests-Core\TesseractEngine-Tests-Core.csproj", "{0C939FA8-26DA-4B30-B66F-21D8B31B61B2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TesseractEngine-Core", "TesseractEngine\TesseractEngine-Core\TesseractEngine-Core.csproj", "{A905E42C-E56E-493B-8BB5-63B4E04584C8}"
 EndProject
@@ -11,13 +11,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TesseractEngine-GLFW", "Tes
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TesseractEngine-Vulkan", "TesseractEngine\TesseractEngine-Vulkan\TesseractEngine-Vulkan.csproj", "{138C2530-F181-45C3-97E6-B560B87DE834}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TesseractEngine-Tests-All", "TesseractEngine-Tests-All\TesseractEngine-Tests-All.csproj", "{016CD4BB-F593-4B35-92BC-E6623ECA8111}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TesseractEngine-Tests-All", "TesseractEngine-Tests-All\TesseractEngine-Tests-All.csproj", "{016CD4BB-F593-4B35-92BC-E6623ECA8111}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TesseractEngine-Tests-GLFW", "TesseractEngine-Tests-GLFW\TesseractEngine-Tests-GLFW.csproj", "{45375AA2-90E4-4660-9FBD-5DC8F70150BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TesseractEngine-Tests-GLFW", "TesseractEngine-Tests-GLFW\TesseractEngine-Tests-GLFW.csproj", "{45375AA2-90E4-4660-9FBD-5DC8F70150BF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TesseractEngine-GL", "TesseractEngine\TesseractEngine-GL\TesseractEngine-GL.csproj", "{2F41B8AE-6588-46DF-B119-7418DE3CD3B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TesseractEngine-Tests-GL", "TesseractEngine-Tests-GL\TesseractEngine-Tests-GL.csproj", "{1D2E0898-C0F5-4E2A-A3FD-ABD4CDA8568C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TesseractEngine-Tests-GL", "TesseractEngine-Tests-GL\TesseractEngine-Tests-GL.csproj", "{1D2E0898-C0F5-4E2A-A3FD-ABD4CDA8568C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TesseractEngine-Tests-Vulkan", "TesseractEngine-Tests-Vulkan\TesseractEngine-Tests-Vulkan.csproj", "{C0A44D36-796A-43AE-A454-87392F9C77E0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +59,10 @@ Global
 		{1D2E0898-C0F5-4E2A-A3FD-ABD4CDA8568C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1D2E0898-C0F5-4E2A-A3FD-ABD4CDA8568C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1D2E0898-C0F5-4E2A-A3FD-ABD4CDA8568C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0A44D36-796A-43AE-A454-87392F9C77E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0A44D36-796A-43AE-A454-87392F9C77E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0A44D36-796A-43AE-A454-87392F9C77E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0A44D36-796A-43AE-A454-87392F9C77E0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
