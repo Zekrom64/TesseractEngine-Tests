@@ -102,7 +102,7 @@ namespace Tesseract.Tests.Vulkan {
 		private static int ScoreFormat(VKSurfaceFormatKHR format) {
 			int score = 0;
 			if (format.ColorSpace == VKColorSpaceKHR.SRGBNonlinear) score += 1;
-			if (format.Format == VKFormat.B8G8R8A8UNorm) score += 1;
+			if (format.Format == VKFormat.R8G8B8A8UNorm) score += 1;
 			return score;
 		}
 
@@ -146,13 +146,11 @@ namespace Tesseract.Tests.Vulkan {
 				ImageArrayLayers = 1,
 				ImageFormat = format.Format,
 				ImageSharingMode = VKSharingMode.Exclusive,
-				QueueFamilyIndexCount = 1,
-				QueueFamilyIndices = sp.Values(queueFamily),
 				ImageColorSpace = format.ColorSpace,
 				ImageUsage = VKImageUsageFlagBits.TransferDst,
 				MinImageCount = imageCount,
 				CompositeAlpha = VKCompositeAlphaFlagBitsKHR.Opaque,
-				Clipped = false,
+				Clipped = true,
 				PreTransform = capabilities.CurrentTransform,
 				PresentMode = presentMode
 			});
