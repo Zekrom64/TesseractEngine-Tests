@@ -21,7 +21,7 @@ namespace Tesseract.Tests.OpenGL {
 #version 330
 
 layout(location = 0)
-in vec2 inPosition;
+in vec3 inPosition;
 layout(location = 1)
 in vec3 inColor;
 layout(location = 2)
@@ -31,7 +31,7 @@ out vec2 fragTexCoord;
 out vec3 fragColor;
 
 void main() {
-	gl_Position = vec4(inPosition, 0.0, 1.0);
+	gl_Position = vec4(inPosition, 1.0);
 	fragTexCoord = inTexCoord;
 	fragColor = inColor;
 }
@@ -55,7 +55,7 @@ void main() {
 
 		public struct Vertex {
 
-			public Vector2 Position;
+			public Vector3 Position;
 
 			public Vector3 Color;
 
@@ -91,9 +91,9 @@ void main() {
 			uint vbo = gl33.GenBuffers();
 			gl33.BindBuffer(GLBufferTarget.Array, vbo);
 			gl33.BufferData(GLBufferTarget.Array, GLBufferUsage.StaticDraw,
-				new Vertex() { Position = new(-1, -1), Color = new(1, 0, 0), TexCoord = new(0, 0) },
-				new Vertex() { Position = new( 0,  1), Color = new(0, 1, 0), TexCoord = new(0.5f, 1) },
-				new Vertex() { Position = new( 1, -1), Color = new(0, 0, 1), TexCoord = new(1, 0) }
+				new Vertex() { Position = new(-1, -1, 0), Color = new(1, 0, 0), TexCoord = new(0, 0) },
+				new Vertex() { Position = new( 0,  1, 0), Color = new(0, 1, 0), TexCoord = new(0.5f, 1) },
+				new Vertex() { Position = new( 1, -1, 0), Color = new(0, 0, 1), TexCoord = new(1, 0) }
 			);
 
 			// Create vertex array
@@ -101,7 +101,7 @@ void main() {
 			gl33.BindVertexArray(vao);
 			int stride = Marshal.SizeOf<Vertex>();
 			gl33.EnableVertexAttribArray(0);
-			gl33.VertexAttribPointer(0, 2, GLType.Float, false, stride, Marshal.OffsetOf<Vertex>("Position"));
+			gl33.VertexAttribPointer(0, 3, GLType.Float, false, stride, Marshal.OffsetOf<Vertex>("Position"));
 			gl33.EnableVertexAttribArray(1);
 			gl33.VertexAttribPointer(1, 3, GLType.Float, false, stride, Marshal.OffsetOf<Vertex>("Color"));
 			gl33.EnableVertexAttribArray(2);

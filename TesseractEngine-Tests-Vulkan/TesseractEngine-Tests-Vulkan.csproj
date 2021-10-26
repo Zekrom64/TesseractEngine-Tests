@@ -6,6 +6,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Shaders\main.frag.spv" />
+    <None Remove="Shaders\main.vert.spv" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Shaders\main.frag.spv" />
+    <EmbeddedResource Include="Shaders\main.vert.spv" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\TesseractEngine-Tests-GLFW\TesseractEngine-Tests-GLFW.csproj" />
     <ProjectReference Include="..\TesseractEngine\TesseractEngine-GLFW\TesseractEngine-GLFW.csproj" />
     <ProjectReference Include="..\TesseractEngine\TesseractEngine-Vulkan\TesseractEngine-Vulkan.csproj" />
