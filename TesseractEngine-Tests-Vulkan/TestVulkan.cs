@@ -355,7 +355,7 @@ namespace Tesseract.Tests.Vulkan {
 					RenderPass = RenderPass,
 					Subpass = 0,
 
-					StageCount = 1,
+					StageCount = (uint)shaderStages.ArraySize,
 					Stages = shaderStages,
 					VertexInputState = sp.Values(new VKPipelineVertexInputStateCreateInfo() {
 						Type = VKStructureType.PipelineVertexInputStateCreateInfo,
@@ -396,10 +396,10 @@ namespace Tesseract.Tests.Vulkan {
 					}),
 					RasterizationState = sp.Values(new VKPipelineRasterizationStateCreateInfo() {
 						Type = VKStructureType.PipelineRasterizationStateCreateInfo,
-						CullMode = VKCullModeFlagBits.Back,
+						CullMode = VKCullModeFlagBits.None,
 						FrontFace = VKFrontFace.Clockwise,
 						PolygonMode = VKPolygonMode.Fill,
-						LineWidth = 1.0f,
+						LineWidth = 1.0f
 					}),
 					MultisampleState = sp.Values(new VKPipelineMultisampleStateCreateInfo() {
 						Type = VKStructureType.PipelineMultisampleStateCreateInfo,
@@ -679,7 +679,7 @@ namespace Tesseract.Tests.Vulkan {
 				RenderArea = new() { Extent = framebuffer.Extent },
 				ClearValueCount = 1,
 				ClearValues = sp.Values(new VKClearValue() {
-					Color = new() { Float32 = new Vector4(0.392f, 0.584f, 0.929f, 1) }
+					Color = new() { Float32 = new Vector4(0, 0, 0, 1) }
 				})
 			}, VKSubpassContents.Inline);
 
@@ -917,6 +917,8 @@ namespace Tesseract.Tests.Vulkan {
 			// Create framebuffer
 			FramebufferImpl framebuffer = new (device, physicalDevice, pipeline, swapchainImageFormat, swapchainImageExtent);
 			// Again, don't push disposable because it has special handling
+
+			Console.WriteLine("[Vulkan] Basic triangle - (Vertex Buffers, Textures, Pipelines, Render Passes, Descriptor Sets, Framebuffers)");
 
 			while (!window.ShouldClose) {
 				// Rewind semaphore manager
