@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Tesseract.Tests.GLFW;
+using Tesseract.Tests.SDL;
 using Tesseract.Tests.OpenGL;
 using Tesseract.Tests.Vulkan;
 
@@ -19,6 +20,8 @@ namespace Tesseract.Tests {
 			List<Test> tests = new() {
 				new() { TestFunc = TestGLFW.TestRaw, Name = "GLFW - Raw API" },
 				new() { TestFunc = TestGLFW.TestServices, Name = "GLFW - Services" },
+
+				new() { TestFunc = TestSDL.TestRaw, Name = "SDL2 - Raw API" },
 
 				new() { TestFunc = TestGL.TestRaw, Name = "OpenGL - Raw API" },
 

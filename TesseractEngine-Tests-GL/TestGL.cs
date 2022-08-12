@@ -5,7 +5,7 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
-using Tesseract.Core.Math;
+using Tesseract.Core.Numerics;
 using Tesseract.Core.Native;
 using Tesseract.GLFW;
 using Tesseract.GLFW.Services;
@@ -137,7 +137,7 @@ void main() {
 			uint texture = gl33.GenTextures();
 			gl33.ActiveTexture = 0;
 			gl33.BindTexture(GLTextureTarget.Texture2D, texture);
-			gl33.TexImage2D(GLTextureTarget.Texture2D, 0, GLInternalFormat.RGBA, 32, 32, 0, GLFormat.RGBA, GLType.UnsignedByte, texturePixels);
+			gl33.TexImage2D(GLTextureTarget.Texture2D, 0, GLInternalFormat.RGBA, 32, 32, 0, GLFormat.RGBA, GLTextureType.UnsignedByte, texturePixels);
 			gl33.GenerateMipmap(GLTextureTarget.Texture2D);
 
 			// Create sampler

@@ -7,9 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using Tesseract.Core.Math;
+using Tesseract.Core.Numerics;
 using Tesseract.Core.Native;
-using Tesseract.Core.Util;
+using Tesseract.Core.Utilities;
 using Tesseract.Tests.GLFW;
 using Tesseract.GLFW;
 using Tesseract.Vulkan;
@@ -160,7 +160,7 @@ namespace Tesseract.Tests.Vulkan {
 			Console.WriteLine($"[Vulkan]     Size: {extent}");
 
 			return device.CreateSwapchainKHR(new VKSwapchainCreateInfoKHR() {
-				Type = VKStructureType.SWAPCHAIN_CREATE_INFO_KHR,
+				Type = VKStructureType.SwapchainCreateInfoKHR,
 				Surface = surface,
 				ImageExtent = extent,
 				ImageArrayLayers = 1,
@@ -760,7 +760,7 @@ namespace Tesseract.Tests.Vulkan {
 			VKInstance instance = CreateInstance(vk);
 			disposables.Push(instance);
 			VKDebugReportCallbackEXT debugReportCallback = instance.CreateDebugReportCallbackEXT(new VKDebugReportCallbackCreateInfoEXT() {
-				Type = VKStructureType.DEBUG_REPORT_CALLBACK_CREATE_INFO_EXT,
+				Type = VKStructureType.DebugReportCallbackCreateInfoEXT,
 				Flags = VKDebugReportFlagBitsEXT.Error | VKDebugReportFlagBitsEXT.Warning | VKDebugReportFlagBitsEXT.PerformanceWarning,
 				Callback = (VKDebugReportFlagBitsEXT flags, VKDebugReportObjectTypeEXT objectType, ulong obj, nuint location, int messageCode, string layerPrefix, string message, IntPtr userData) => {
 					if ((flags & VKDebugReportFlagBitsEXT.Error) != 0) Console.Error.WriteLine($"[Vulkan][{layerPrefix}]: {message}");
@@ -805,7 +805,7 @@ namespace Tesseract.Tests.Vulkan {
 			VKBuffer vbo = CreateBuffer(device, physicalDevice, vboSize, VKBufferUsageFlagBits.VertexBuffer, VKMemoryPropertyFlagBits.HostVisible | VKMemoryPropertyFlagBits.HostCoherent, out VKDeviceMemory vboMemory);
 			disposables.Push(vboMemory);
 			disposables.Push(vbo);
-			MemoryUtil.Copy(new UnmanagedPointer<Vertex>(vboMemory.MapMemory(0, VK10.WholeSize, 0)), vertices, vboSize);
+			vertices.CopyTo(new UnmanagedPointer<Vertex>(vboMemory.MapMemory(0, VK10.WholeSize, 0)).Span);
 			vboMemory.UnmapMemory();
 
 			// Create texture
@@ -826,7 +826,7 @@ namespace Tesseract.Tests.Vulkan {
 			VKBuffer pbo = CreateBuffer(device, physicalDevice, pboSize, VKBufferUsageFlagBits.TransferSrc, VKMemoryPropertyFlagBits.HostVisible | VKMemoryPropertyFlagBits.HostCoherent, out VKDeviceMemory pboMemory);
 			disposables.Push(pboMemory);
 			disposables.Push(pbo);
-			MemoryUtil.Copy(new UnmanagedPointer<uint>(pboMemory.MapMemory(0, VK10.WholeSize, 0)), texturePixels, pboSize);
+			texturePixels.CopyTo(new UnmanagedPointer<uint>(pboMemory.MapMemory(0, VK10.WholeSize, 0)).Span);
 			pboMemory.UnmapMemory();
 
 			UploadTexture(cm, device, queue, pbo, texture, new VKBufferImageCopy() {
@@ -968,7 +968,7 @@ namespace Tesseract.Tests.Vulkan {
 					// Enqueue present
 					UnmanagedPointer<VKResult> pResult = sp.Alloc<VKResult>();
 					queue.PresentKHR(new VKPresentInfoKHR() {
-						Type = VKStructureType.PRESENT_INFO_KHR,
+						Type = VKStructureType.PresentInfoKHR,
 						SwapchainCount = 1,
 						Swapchains = sp.Values(swapchain),
 						ImageIndices = sp.Values(swapchainImageIndex),
