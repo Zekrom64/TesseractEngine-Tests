@@ -47,6 +47,7 @@ namespace Tesseract.Tests.SDL {
 				renderer.Present();
 			}
 
+			renderer.Dispose();
 			window.Dispose();
 		});
 

@@ -9,6 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\TesseractEngine-Tests-GLFW\TesseractEngine-Tests-GLFW.csproj" />
     <ProjectReference Include="..\TesseractEngine-Tests-GL\TesseractEngine-Tests-GL.csproj" />
+    <ProjectReference Include="..\TesseractEngine-Tests-ImGui\TesseractEngine-Tests-ImGui.csproj" />
     <ProjectReference Include="..\TesseractEngine-Tests-SDL\TesseractEngine-Tests-SDL2.csproj" />
     <ProjectReference Include="..\TesseractEngine-Tests-Vulkan\TesseractEngine-Tests-Vulkan.csproj" />
   </ItemGroup>

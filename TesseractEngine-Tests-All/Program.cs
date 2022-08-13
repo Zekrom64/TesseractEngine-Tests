@@ -4,6 +4,7 @@ using Tesseract.Tests.GLFW;
 using Tesseract.Tests.SDL;
 using Tesseract.Tests.OpenGL;
 using Tesseract.Tests.Vulkan;
+using Tesseract.Tests.ImGui;
 
 namespace Tesseract.Tests {
 	static class Program {
@@ -25,7 +26,9 @@ namespace Tesseract.Tests {
 
 				new() { TestFunc = TestGL.TestRaw, Name = "OpenGL - Raw API" },
 
-				new() { TestFunc = TestVulkan.TestRaw, Name = "Vulkan - Raw API" }
+				new() { TestFunc = TestVulkan.TestRaw, Name = "Vulkan - Raw API" },
+
+				new() { TestFunc = TestImGui.TestSDL, Name = "ImGui - SDL2 + SDLRenderer" }
 			};
 			int ntests = 0;
 			int successes = 0;

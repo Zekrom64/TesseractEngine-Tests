@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <RootNamespace>Tesseract.Tests.ImGui</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TesseractEngine-Tests-SDL\TesseractEngine-Tests-SDL2.csproj" />
+    <ProjectReference Include="..\TesseractEngine\TesseractEngine-ImGui-CLI\TesseractEngine-ImGui-CLI.vcxproj" />
+    <ProjectReference Include="..\TesseractEngine\TesseractEngine-ImGui-SDL2\TesseractEngine-ImGui-SDL2.csproj" />
+    <ProjectReference Include="..\TesseractEngine\TesseractEngine-ImGui\TesseractEngine-ImGui.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="TesseractEngine-ImGui-CLI">
+      <HintPath>..\x64\Debug\TesseractEngine-ImGui-CLI.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
