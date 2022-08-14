@@ -10,6 +10,7 @@
   <ItemGroup>
     <ProjectReference Include="..\TesseractEngine-Tests-SDL\TesseractEngine-Tests-SDL2.csproj" />
     <ProjectReference Include="..\TesseractEngine\TesseractEngine-ImGui-CLI\TesseractEngine-ImGui-CLI.vcxproj" />
+    <ProjectReference Include="..\TesseractEngine\TesseractEngine-ImGui-OpenGL\TesseractEngine-ImGui-OpenGL.csproj" />
     <ProjectReference Include="..\TesseractEngine\TesseractEngine-ImGui-SDL2\TesseractEngine-ImGui-SDL2.csproj" />
     <ProjectReference Include="..\TesseractEngine\TesseractEngine-ImGui\TesseractEngine-ImGui.csproj" />
   </ItemGroup>

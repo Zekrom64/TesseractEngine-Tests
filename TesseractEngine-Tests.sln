@@ -31,9 +31,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TesseractEngine-ImGui", "Te
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TesseractEngine-ImGui-CLI", "TesseractEngine\TesseractEngine-ImGui-CLI\TesseractEngine-ImGui-CLI.vcxproj", "{A2941801-C897-4DBF-9774-B6F193521427}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TesseractEngine-Tests-ImGui", "TesseractEngine-Tests-ImGui\TesseractEngine-Tests-ImGui.csproj", "{2459BDED-DF85-4E5F-866B-474163B3E679}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TesseractEngine-Tests-ImGui", "TesseractEngine-Tests-ImGui\TesseractEngine-Tests-ImGui.csproj", "{2459BDED-DF85-4E5F-866B-474163B3E679}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TesseractEngine-ImGui-SDL2", "TesseractEngine\TesseractEngine-ImGui-SDL2\TesseractEngine-ImGui-SDL2.csproj", "{A70FD749-BE17-4934-AD2A-789006F15A13}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TesseractEngine-ImGui-OpenGL", "TesseractEngine\TesseractEngine-ImGui-OpenGL\TesseractEngine-ImGui-OpenGL.csproj", "{0CDB1D5C-9073-460D-B89B-F0C09AF32304}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -225,6 +227,18 @@ Global
 		{A70FD749-BE17-4934-AD2A-789006F15A13}.Release|x64.Build.0 = Release|Any CPU
 		{A70FD749-BE17-4934-AD2A-789006F15A13}.Release|x86.ActiveCfg = Release|Any CPU
 		{A70FD749-BE17-4934-AD2A-789006F15A13}.Release|x86.Build.0 = Release|Any CPU
+		{0CDB1D5C-9073-460D-B89B-F0C09AF32304}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0CDB1D5C-9073-460D-B89B-F0C09AF32304}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0CDB1D5C-9073-460D-B89B-F0C09AF32304}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{0CDB1D5C-9073-460D-B89B-F0C09AF32304}.Debug|x64.Build.0 = Debug|Any CPU
+		{0CDB1D5C-9073-460D-B89B-F0C09AF32304}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0CDB1D5C-9073-460D-B89B-F0C09AF32304}.Debug|x86.Build.0 = Debug|Any CPU
+		{0CDB1D5C-9073-460D-B89B-F0C09AF32304}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0CDB1D5C-9073-460D-B89B-F0C09AF32304}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0CDB1D5C-9073-460D-B89B-F0C09AF32304}.Release|x64.ActiveCfg = Release|Any CPU
+		{0CDB1D5C-9073-460D-B89B-F0C09AF32304}.Release|x64.Build.0 = Release|Any CPU
+		{0CDB1D5C-9073-460D-B89B-F0C09AF32304}.Release|x86.ActiveCfg = Release|Any CPU
+		{0CDB1D5C-9073-460D-B89B-F0C09AF32304}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

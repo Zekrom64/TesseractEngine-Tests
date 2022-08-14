@@ -17,7 +17,7 @@ namespace Tesseract.Tests {
 
 		}
 
-		static void Main(string[] args) {
+		static void Main(string[] _) {
 			List<Test> tests = new() {
 				new() { TestFunc = TestGLFW.TestRaw, Name = "GLFW - Raw API" },
 				new() { TestFunc = TestGLFW.TestServices, Name = "GLFW - Services" },
@@ -28,7 +28,8 @@ namespace Tesseract.Tests {
 
 				new() { TestFunc = TestVulkan.TestRaw, Name = "Vulkan - Raw API" },
 
-				new() { TestFunc = TestImGui.TestSDL, Name = "ImGui - SDL2 + SDLRenderer" }
+				new() { TestFunc = TestImGui.TestSDL, Name = "ImGui - SDL2 + SDLRenderer" },
+				new() { TestFunc = TestImGui.TestGL45, Name = "ImGui - SDL2 + OpenGL 4.5" }
 			};
 			int ntests = 0;
 			int successes = 0;
