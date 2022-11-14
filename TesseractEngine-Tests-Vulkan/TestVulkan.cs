@@ -32,9 +32,9 @@ namespace Tesseract.Tests.Vulkan {
 				Type = VKStructureType.ApplicationInfo,
 				APIVersion = VK10.ApiVersion,
 				ApplicationName = "TesseractEngine-Test",
-				ApplicationVersion = VK10.MakeVersion(0, 1, 0),
+				ApplicationVersion = VK10.MakeApiVersion(0, 1, 0, 0),
 				EngineName = "Tesseract",
-				EngineVersion = VK10.MakeVersion(0, 1, 0)
+				EngineVersion = VK10.MakeApiVersion(0, 1, 0, 0)
 			});
 
 			HashSet<string> layers = new(), extensions = new();
@@ -474,7 +474,7 @@ namespace Tesseract.Tests.Vulkan {
 				Type = VKStructureType.ImageCreateInfo,
 				ImageType = VKImageType.Type2D,
 				Format = format,
-				Extent = new VKExtent3D() { Width = (uint)width, Height = (uint)height, Depth = 1 },
+				Extent = new Vector3ui((uint)width, (uint)height, 1),
 				MipLevels = 1,
 				ArrayLayers = 1,
 				Samples = VKSampleCountFlagBits.Count1Bit,
@@ -531,7 +531,7 @@ namespace Tesseract.Tests.Vulkan {
 					LayerCount = 1,
 					MipLevel = 0
 				},
-				ImageExtent = new() { Width = 32, Height = 32, Depth = 1 }
+				ImageExtent = new(32, 32, 1)
 			});
 
 			cmdbuf.PipelineBarrier(
@@ -566,7 +566,7 @@ namespace Tesseract.Tests.Vulkan {
 			queue.Submit(new VKSubmitInfo() {
 				Type = VKStructureType.SubmitInfo,
 				CommandBufferCount = 1,
-				CommandBuffers = sp.Values(cmdbuf)
+				CommandBuffers = sp.Values(cmdbuf.CommandBuffer)
 			}, textureUploadCommands.Item2);
 			textureUploadCommands.Item2.WaitFor(ulong.MaxValue);
 		}
@@ -698,7 +698,7 @@ namespace Tesseract.Tests.Vulkan {
 
 			// Copy framebuffer to swapchain
 			cmdbuf.CopyImage(framebuffer.ColorAttachment, VKImageLayout.TransferSrcOptimal, swapchainImage.Image, VKImageLayout.TransferDstOptimal, new VKImageCopy() {
-				Extent = new() { Width = framebuffer.Extent.X, Height = framebuffer.Extent.Y, Depth = 1 },
+				Extent = new(framebuffer.Extent, 1),
 				SrcSubresource = new() {
 					AspectMask = VKImageAspectFlagBits.Color,
 					BaseArrayLayer = 0,
@@ -805,7 +805,7 @@ namespace Tesseract.Tests.Vulkan {
 			VKBuffer vbo = CreateBuffer(device, physicalDevice, vboSize, VKBufferUsageFlagBits.VertexBuffer, VKMemoryPropertyFlagBits.HostVisible | VKMemoryPropertyFlagBits.HostCoherent, out VKDeviceMemory vboMemory);
 			disposables.Push(vboMemory);
 			disposables.Push(vbo);
-			vertices.CopyTo(new UnmanagedPointer<Vertex>(vboMemory.MapMemory(0, VK10.WholeSize, 0)).Span);
+			vertices.CopyTo(new UnmanagedPointer<Vertex>(vboMemory.MapMemory(0, VK10.WholeSize, 0), vertices.Length).Span);
 			vboMemory.UnmapMemory();
 
 			// Create texture
@@ -826,7 +826,7 @@ namespace Tesseract.Tests.Vulkan {
 			VKBuffer pbo = CreateBuffer(device, physicalDevice, pboSize, VKBufferUsageFlagBits.TransferSrc, VKMemoryPropertyFlagBits.HostVisible | VKMemoryPropertyFlagBits.HostCoherent, out VKDeviceMemory pboMemory);
 			disposables.Push(pboMemory);
 			disposables.Push(pbo);
-			texturePixels.CopyTo(new UnmanagedPointer<uint>(pboMemory.MapMemory(0, VK10.WholeSize, 0)).Span);
+			texturePixels.CopyTo(new UnmanagedPointer<uint>(pboMemory.MapMemory(0, VK10.WholeSize, 0), texturePixels.Length).Span);
 			pboMemory.UnmapMemory();
 
 			UploadTexture(cm, device, queue, pbo, texture, new VKBufferImageCopy() {
@@ -836,7 +836,7 @@ namespace Tesseract.Tests.Vulkan {
 					LayerCount = 1,
 					MipLevel = 0
 				},
-				ImageExtent = new() { Width = 32, Height = 32, Depth = 1 }
+				ImageExtent = new(32, 32, 1)
 			});
 
 			// Create texture view
@@ -957,7 +957,7 @@ namespace Tesseract.Tests.Vulkan {
 					queue.Submit(new VKSubmitInfo() {
 						Type = VKStructureType.SubmitInfo,
 						CommandBufferCount = 1,
-						CommandBuffers = sp.Values(cmdbuf),
+						CommandBuffers = sp.Values(cmdbuf.CommandBuffer),
 						WaitSemaphoreCount = 1,
 						WaitSemaphores = sp.Values(semAcquireImage),
 						WaitDstStageMask = sp.Values(VKPipelineStageFlagBits.TopOfPipe),

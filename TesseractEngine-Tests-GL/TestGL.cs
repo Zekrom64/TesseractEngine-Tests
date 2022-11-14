@@ -67,6 +67,7 @@ void main() {
 			GLFW3.DefaultWindowHints();
 			GLFW3.WindowHint(GLFWWindowAttrib.Resizable, 0);
 			GLFW3.WindowHint(GLFWWindowAttrib.OpenGLDebugContext, 1);
+			GLFWGLServices.Register();
 			GLFWWindow window = new(new Vector2i(800, 600), "GL Test");
 
 			GLFWGLContext glcontext = new(window);

@@ -75,7 +75,7 @@ namespace Tesseract.Tests.ImGui {
 				renderer.BlendMode = SDLBlendMode.Blend;
 
 				renderer.DrawColor = new Vector4b(0xFF, 0, 0, 0xFF);
-				renderer.FillRect(new SDLRect() { Size = size / 2 });
+				renderer.FillRect(new Recti(size / 2));
 
 				if (fontTexture == null) {
 					fontTexture = new((IntPtr)(nint)GImGui.IO.Fonts.TexID);
