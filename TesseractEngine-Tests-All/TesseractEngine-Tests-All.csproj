@@ -4,14 +4,37 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>net7.0</TargetFramework>
     <RootNamespace>Tesseract.Tests</RootNamespace>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Shaders\main.frag" />
+    <None Remove="Shaders\main.frag.spv" />
+    <None Remove="Shaders\main.vert" />
+    <None Remove="Shaders\main.vert.spv" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Shaders\main.frag" />
+    <EmbeddedResource Include="Shaders\main.frag.spv" />
+    <EmbeddedResource Include="Shaders\main.vert" />
+    <EmbeddedResource Include="Shaders\main.vert.spv" />
+  </ItemGroup>
 	
   <ItemGroup>
-    <ProjectReference Include="..\TesseractEngine-Tests-GLFW\TesseractEngine-Tests-GLFW.csproj" />
-    <ProjectReference Include="..\TesseractEngine-Tests-GL\TesseractEngine-Tests-GL.csproj" />
-    <ProjectReference Include="..\TesseractEngine-Tests-ImGui\TesseractEngine-Tests-ImGui.csproj" />
-    <ProjectReference Include="..\TesseractEngine-Tests-SDL\TesseractEngine-Tests-SDL2.csproj" />
-    <ProjectReference Include="..\TesseractEngine-Tests-Vulkan\TesseractEngine-Tests-Vulkan.csproj" />
+    <ProjectReference Include="..\TesseractEngine\TesseractEngine-Core\TesseractEngine-Core.csproj" />
+    <ProjectReference Include="..\TesseractEngine\TesseractEngine-GLFW-OpenGL\TesseractEngine-GLFW-OpenGL.csproj" />
+    <ProjectReference Include="..\TesseractEngine\TesseractEngine-GLFW-Vulkan\TesseractEngine-GLFW-Vulkan.csproj" />
+    <ProjectReference Include="..\TesseractEngine\TesseractEngine-GLFW\TesseractEngine-GLFW.csproj" />
+    <ProjectReference Include="..\TesseractEngine\TesseractEngine-GL\TesseractEngine-GL.csproj" />
+    <ProjectReference Include="..\TesseractEngine\TesseractEngine-ImGui-CLI\TesseractEngine-ImGui-CLI.vcxproj" />
+    <ProjectReference Include="..\TesseractEngine\TesseractEngine-ImGui-OpenGL\TesseractEngine-ImGui-OpenGL.csproj" />
+    <ProjectReference Include="..\TesseractEngine\TesseractEngine-ImGui-SDL2\TesseractEngine-ImGui-SDL2.csproj" />
+    <ProjectReference Include="..\TesseractEngine\TesseractEngine-ImGui\TesseractEngine-ImGui.csproj" />
+    <ProjectReference Include="..\TesseractEngine\TesseractEngine-SDL2-OpenGL\TesseractEngine-SDL2-OpenGL.csproj" />
+    <ProjectReference Include="..\TesseractEngine\TesseractEngine-SDL2-Vulkan\TesseractEngine-SDL2-Vulkan.csproj" />
+    <ProjectReference Include="..\TesseractEngine\TesseractEngine-SDL2\TesseractEngine-SDL2.csproj" />
+    <ProjectReference Include="..\TesseractEngine\TesseractEngine-Vulkan\TesseractEngine-Vulkan.csproj" />
   </ItemGroup>
 
   <ItemGroup>

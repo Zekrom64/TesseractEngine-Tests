@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tesseract.Core.Numerics;
 using Tesseract.SDL;
 
-namespace Tesseract.Tests.SDL {
+namespace Tesseract.Tests {
 
 	public class TestSDL {
 
@@ -21,10 +22,13 @@ namespace Tesseract.Tests.SDL {
 		}
 
 		public static void TestRaw() => RunWithSDL(() => {
-			(SDLWindow window, SDLRenderer renderer) = SDL2.CreateWindowAndRenderer(800, 600, SDLWindowFlags.Shown);
+			(SDLWindow window, SDLRenderer renderer) = SDL2.CreateWindowAndRenderer(800, 600, SDLWindowFlags.Shown | SDLWindowFlags.Resizable);
 
 			bool running = true;
 			while (running) {
+				Vector2i sz = renderer.OutputSize;
+				Vector2i hsz = sz / 2;
+
 				SDLEvent? evt = SDL2.WaitEventTimeout(10);
 				if (evt != null) {
 					do {
@@ -42,8 +46,8 @@ namespace Tesseract.Tests.SDL {
 				renderer.DrawColor = new(0, 0, 0, 0xFF);
 				renderer.Clear();
 				renderer.DrawColor = new(0xFF, 0xFF, 0xFF, 0xFF);
-				renderer.DrawLine(400, 0, 400, 600);
-				renderer.DrawLine(0, 300, 800, 300);
+				renderer.DrawLine(hsz.X, 0, hsz.X, sz.Y);
+				renderer.DrawLine(0, hsz.Y, sz.X, hsz.Y);
 				renderer.Present();
 			}
 

@@ -1,10 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Tesseract.Tests.GLFW;
-using Tesseract.Tests.SDL;
-using Tesseract.Tests.OpenGL;
-using Tesseract.Tests.Vulkan;
-using Tesseract.Tests.ImGui;
 
 namespace Tesseract.Tests {
 	static class Program {

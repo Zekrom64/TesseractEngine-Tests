@@ -10,11 +10,10 @@ using System.Runtime.InteropServices;
 using Tesseract.Core.Numerics;
 using Tesseract.Core.Native;
 using Tesseract.Core.Utilities;
-using Tesseract.Tests.GLFW;
 using Tesseract.GLFW;
 using Tesseract.Vulkan;
 
-namespace Tesseract.Tests.Vulkan {
+namespace Tesseract.Tests {
 	
 	public static class TestVulkan {
 
@@ -275,7 +274,7 @@ namespace Tesseract.Tests.Vulkan {
 
 		private static VKShaderModule CreateShaderModule(VKDevice device, string name) {
 			Assembly asm = Assembly.GetAssembly(typeof(TestVulkan));
-			using Stream res = asm.GetManifestResourceStream($"Tesseract.Tests.Vulkan.Shaders.{name}.spv");
+			using Stream res = asm.GetManifestResourceStream($"Tesseract.Tests.Shaders.{name}.spv");
 			using MemoryStream ms = new();
 			res.CopyTo(ms);
 			using ManagedPointer<byte> code = new(ms.ToArray());

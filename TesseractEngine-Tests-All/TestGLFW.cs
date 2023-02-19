@@ -11,7 +11,7 @@ using Tesseract.Core.Services;
 using Tesseract.GLFW;
 using Tesseract.GLFW.Services;
 
-namespace Tesseract.Tests.GLFW {
+namespace Tesseract.Tests {
 	
 	public static class TestGLFW {
 
@@ -31,6 +31,7 @@ namespace Tesseract.Tests.GLFW {
 			Console.WriteLine("[GLFW] Raw API - Window");
 			GLFW3.DefaultWindowHints();
 			GLFW3.WindowHint(GLFWWindowAttrib.Resizable, 0);
+			GLFW3.WindowHint(GLFWWindowAttrib.ScaleToMonitor, 1);
 			GLFWWindow window = new(new Vector2i(800, 600), "Test");
 
 			while (!window.ShouldClose) {
@@ -45,8 +46,8 @@ namespace Tesseract.Tests.GLFW {
 			IWindowSystem windowSystem = new GLFWServiceWindowSystem();
 			IInputSystem inputSystem = new GLFWServiceInputSystem();
 			IWindow window = windowSystem.CreateWindow("Test", 800, 600, new WindowAttributeList() {
-					{ WindowAttributes.Resizable, false }
-				});
+				{ WindowAttributes.Resizable, false }
+			});
 
 			while (!window.Closing) {
 				inputSystem.RunEvents();

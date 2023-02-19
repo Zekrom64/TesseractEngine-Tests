@@ -14,7 +14,7 @@ using Tesseract.Core.Numerics;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 
-namespace Tesseract.Tests.ImGui {
+namespace Tesseract.Tests {
 
 	public static class TestImGui {
 
@@ -33,7 +33,7 @@ namespace Tesseract.Tests.ImGui {
 			GImGui.Render();
 		}
 
-		public static void TestSDL() => SDL.TestSDL.RunWithSDL(() => {
+		public static void TestSDL() => Tests.TestSDL.RunWithSDL(() => {
 			(SDLWindow window, SDLRenderer renderer) = SDL2.CreateWindowAndRenderer(800, 600, SDLWindowFlags.Shown | SDLWindowFlags.Resizable);
 			window.Title = "Test";
 
@@ -94,7 +94,7 @@ namespace Tesseract.Tests.ImGui {
 			window.Dispose();
 		});
 
-		public static void TestGL45() => SDL.TestSDL.RunWithSDL(() => {
+		public static void TestGL45() => Tests.TestSDL.RunWithSDL(() => {
 			SDLWindow window = new("Test", SDL2.WindowPosCentered, SDL2.WindowPosCentered, 800, 600, SDLWindowFlags.Shown | SDLWindowFlags.Resizable | SDLWindowFlags.OpenGL);
 			SDL2.Functions.SDL_GL_SetAttribute(SDLGLAttr.ContextMajorVersion, 4);
 			SDL2.Functions.SDL_GL_SetAttribute(SDLGLAttr.ContextMinorVersion, 5);

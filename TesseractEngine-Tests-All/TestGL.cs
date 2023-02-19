@@ -9,11 +9,10 @@ using Tesseract.Core.Numerics;
 using Tesseract.Core.Native;
 using Tesseract.GLFW;
 using Tesseract.GLFW.Services;
-using Tesseract.Tests.GLFW;
 using Tesseract.OpenGL;
 using Tesseract.OpenGL.Native;
 
-namespace Tesseract.Tests.OpenGL {
+namespace Tesseract.Tests {
 	
 	public static class TestGL {
 
