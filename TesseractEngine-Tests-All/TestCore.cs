@@ -232,6 +232,8 @@ namespace Tesseract.Tests {
 				{ WindowAttributes.Resizable, false },
 				{ GLWindowAttributes.OpenGLWindow, true },
 				{ GLWindowAttributes.DebugContext, true },
+				{ GLWindowAttributes.ContextVersionMajor, 3 },
+				{ GLWindowAttributes.ContextVersionMinor, 3 },
 				{ GLWindowAttributes.ContextProfile, GLProfile.Core }
 			});
 
