@@ -73,13 +73,15 @@ void main() {
 			glcontext.MakeGLCurrent();
 			GL gl = new(glcontext);
 
-			gl.KHRDebug.DebugMessageCallback((GLDebugSource source, GLDebugType type, uint id, GLDebugSeverity severity, int length, string message, IntPtr userParam) => {
-				if (type == GLDebugType.Error) throw new GLException("OpenGL Error: " + message);
-			}, IntPtr.Zero);
+			if (gl.KHRDebug != null) {
+				gl.KHRDebug.DebugMessageCallback((GLDebugSource source, GLDebugType type, uint id, GLDebugSeverity severity, int length, string message, IntPtr userParam) => {
+					if (type == GLDebugType.Error) throw new GLException("OpenGL Error: " + message);
+				}, IntPtr.Zero);
+			}
 
 			Console.WriteLine($"[OpenGL] OpenGL Context {gl.Context.MajorVersion}.{gl.Context.MinorVersion}");
 
-			GL33 gl33 = gl.GL33;
+			GL33? gl33 = gl.GL33;
 			if (gl33 == null) throw new GLException("Cannot test OpenGL with version <3.3");
 
 			Console.WriteLine("[OpenGL] Basic triangle - (Vertex Buffers/Arrays, Textures, Shader Programs)");
@@ -101,11 +103,11 @@ void main() {
 			gl33.BindVertexArray(vao);
 			int stride = Marshal.SizeOf<Vertex>();
 			gl33.EnableVertexAttribArray(0);
-			gl33.VertexAttribPointer(0, 3, GLType.Float, false, stride, Marshal.OffsetOf<Vertex>("Position"));
+			gl33.VertexAttribPointer(0, 3, GLTextureType.Float, false, stride, Marshal.OffsetOf<Vertex>("Position"));
 			gl33.EnableVertexAttribArray(1);
-			gl33.VertexAttribPointer(1, 3, GLType.Float, false, stride, Marshal.OffsetOf<Vertex>("Color"));
+			gl33.VertexAttribPointer(1, 3, GLTextureType.Float, false, stride, Marshal.OffsetOf<Vertex>("Color"));
 			gl33.EnableVertexAttribArray(2);
-			gl33.VertexAttribPointer(2, 2, GLType.Float, false, stride, Marshal.OffsetOf<Vertex>("TexCoord"));
+			gl33.VertexAttribPointer(2, 2, GLTextureType.Float, false, stride, Marshal.OffsetOf<Vertex>("TexCoord"));
 
 			// Create shader modules
 			uint vs = gl33.CreateShader(GLShaderType.Vertex);

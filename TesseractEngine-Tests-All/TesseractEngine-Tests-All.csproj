@@ -28,6 +28,7 @@
     <ProjectReference Include="..\TesseractEngine\TesseractEngine-GLFW\TesseractEngine-GLFW.csproj" />
     <ProjectReference Include="..\TesseractEngine\TesseractEngine-GL\TesseractEngine-GL.csproj" />
     <ProjectReference Include="..\TesseractEngine\TesseractEngine-ImGui-CLI\TesseractEngine-ImGui-CLI.vcxproj" />
+    <ProjectReference Include="..\TesseractEngine\TesseractEngine-ImGui-Core\TesseractEngine-ImGui-Core.csproj" />
     <ProjectReference Include="..\TesseractEngine\TesseractEngine-ImGui-OpenGL\TesseractEngine-ImGui-OpenGL.csproj" />
     <ProjectReference Include="..\TesseractEngine\TesseractEngine-ImGui-SDL2\TesseractEngine-ImGui-SDL2.csproj" />
     <ProjectReference Include="..\TesseractEngine\TesseractEngine-ImGui\TesseractEngine-ImGui.csproj" />

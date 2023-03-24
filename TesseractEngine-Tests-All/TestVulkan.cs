@@ -273,8 +273,8 @@ namespace Tesseract.Tests {
 		}
 
 		private static VKShaderModule CreateShaderModule(VKDevice device, string name) {
-			Assembly asm = Assembly.GetAssembly(typeof(TestVulkan));
-			using Stream res = asm.GetManifestResourceStream($"Tesseract.Tests.Shaders.{name}.spv");
+			Assembly asm = typeof(TestVulkan).Assembly;
+			using Stream res = asm.GetManifestResourceStream($"Tesseract.Tests.Shaders.{name}.spv") ?? throw new IOException($"Vulkan shader {name} not found");
 			using MemoryStream ms = new();
 			res.CopyTo(ms);
 			using ManagedPointer<byte> code = new(ms.ToArray());
@@ -334,18 +334,18 @@ namespace Tesseract.Tests {
 						})
 					})
 				});
-				using ManagedPointer<VKPipelineShaderStageCreateInfo> shaderStages = new(
+				var shaderStages = sp.Values(
 					new VKPipelineShaderStageCreateInfo() {
 						Type = VKStructureType.PipelineShaderStageCreateInfo,
 						Module = VertexShader,
 						Stage = VKShaderStageFlagBits.Vertex,
-						Name = "main"
+						Name = sp.UTF8("main")
 					},
 					new VKPipelineShaderStageCreateInfo() {
 						Type = VKStructureType.PipelineShaderStageCreateInfo,
 						Module = FragmentShader,
 						Stage = VKShaderStageFlagBits.Fragment,
-						Name = "main"
+						Name = sp.UTF8("main")
 					}
 				);
 				Pipeline = device.CreateGraphicsPipelines(null, new VKGraphicsPipelineCreateInfo() {
