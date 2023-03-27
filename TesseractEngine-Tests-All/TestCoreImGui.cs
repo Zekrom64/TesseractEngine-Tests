@@ -27,10 +27,14 @@ namespace Tesseract.Tests {
 
 	public class ImGuiCoreDiagnosticState : ImGuiDiagnosticState, IDisposable {
 
+		private string rendererName;
+
 		private readonly ITexture[] textures = new ITexture[16];
 		private readonly nuint[] textureIDs = new nuint[16];
 
 		public ImGuiCoreDiagnosticState(IGraphics graphics) {
+			rendererName = graphics.Properties.RendererName;
+
 			// Load the atlas texture
 			AssemblyResourceDomain resourceDomain = new("core_imgui", typeof(ImGuiCoreDiagnosticState).Assembly) { PathPrefix = "Tesseract/Tests/Resources/" };
 			var imageIO = new ImageSharpService();
@@ -180,7 +184,7 @@ namespace Tesseract.Tests {
 			atlasImage.Dispose();
 		}
 
-		private int imageCount = 16;
+		private int imageCount = 400;
 
 		public override void Render() {
 			base.Render();
@@ -188,6 +192,9 @@ namespace Tesseract.Tests {
 			var im = GImGui.Instance;
 
 			im.Begin("Load Generator"u8);
+			im.Text($"Renderer: {rendererName}");
+			im.Text($"Stopwatch Freq. (Hz): {Stopwatch.Frequency}");
+			im.Text($"Stopwatch Is High Resolution: {Stopwatch.IsHighResolution}");
 			im.DragInt("Image Count"u8, ref imageCount, vMin: 0, vMax: 1024);
 
 			Random random = new(0);
