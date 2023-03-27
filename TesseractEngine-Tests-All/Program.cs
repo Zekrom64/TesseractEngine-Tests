@@ -31,8 +31,8 @@ namespace Tesseract.Tests {
 
 				new() { TestFunc = TestCore.TestCoreGraphicsVulkan, Name = "Core Graphics - Vulkan" },
 				new() { TestFunc = TestCore.TestCoreGraphicsGL, Name = "Core Graphics - OpenGL" },
-				new() { TestFunc = TestCore.TestCoreImGuiSDLVulkan, Name = "ImGui - Core - Vulkan + SDL" },
-				new() { TestFunc = TestCore.TestCoreImGuiSDLGL, Name = "ImGui - Core - OpenGL + SDL" }
+				new() { TestFunc = TestCoreImGui.TestCoreImGuiSDLVulkan, Name = "ImGui - Core - Vulkan + GLFW" },
+				new() { TestFunc = TestCoreImGui.TestCoreImGuiSDLGL, Name = "ImGui - Core - OpenGL + GLFW" }
 			};
 			int ntests = 0;
 			int successes = 0;

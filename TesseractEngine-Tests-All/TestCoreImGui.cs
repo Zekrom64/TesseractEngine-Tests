@@ -1,98 +1,53 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Numerics;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
-using Tesseract.CLI.ImGui;
-using Tesseract.Core.Collections;
-using Tesseract.Core.Graphics;
 using Tesseract.Core.Graphics.Accelerated;
+using Tesseract.Core.Graphics;
 using Tesseract.Core.Input;
-using Tesseract.Core.Native;
-using Tesseract.Core.Numerics;
-using Tesseract.GLFW;
-using Tesseract.GLFW.Services;
-using Tesseract.ImGui;
-using Tesseract.ImGui.Core;
-using Tesseract.OpenGL;
 using Tesseract.OpenGL.Graphics;
-using Tesseract.SDL;
-using Tesseract.SDL.Services;
-using Tesseract.Vulkan;
-using Tesseract.Vulkan.Services;
+using Tesseract.OpenGL;
+using Tesseract.GLFW.Services;
+using Tesseract.GLFW;
 using Tesseract.Vulkan.Services.Objects;
+using Tesseract.Vulkan.Services;
+using System.Threading;
+using Tesseract.CLI.ImGui;
+using Tesseract.ImGui.Core;
+using Tesseract.ImGui;
+using System.Diagnostics;
 
 namespace Tesseract.Tests {
 
-	public static class TestCore {
+	public static class TestCoreImGui {
 
-		public static void TestCoreGraphicsVulkan() => TestGLFW.RunWithGLFW(TestVulkan);
+		private static void TestImGuiImpl(IGraphicsEnumerator enumerator, IInputSystem inputSystem, IWindow window, IWindowSystem windowSystem) {
+			GImGui.Instance = new ImGuiCLI();
+			GImGui.CurrentContext = GImGui.CreateContext();
 
-		public static void TestCoreGraphicsGL() => TestGLFW.RunWithGLFW(TestGL);
-
-		// Generic draw implementation
-		private static void TestDraw(IFramebuffer framebuffer, IRenderPass renderPass, ICommandSink cmd) {
-			cmd.BeginRenderPass(new ICommandSink.RenderPassBegin() {
-				Framebuffer = framebuffer,
-				RenderPass = renderPass,
-				RenderArea = new Recti(framebuffer.Size),
-				ClearValues = new ICommandSink.ClearValue[] {
-					new ICommandSink.ClearValue() {
-						Aspect = TextureAspect.Color,
-						Color= new Vector4(1, 0, 0, 1)
-					}
-				}
-			}, SubpassContents.Inline);
-
-			cmd.EndRenderPass();
-		}
-
-		// Generic test implementation
-		private static void TestImpl(IGraphicsEnumerator enumerator, IInputSystem inputSystem, IWindow window) {
-			var graphicsProvider = enumerator.EnumerateProviders().First();
-
-			using IGraphics graphics = graphicsProvider.CreateGraphics(new GraphicsCreateInfo() { });
+			var provider = enumerator.EnumerateProviders().First();
+			using IGraphics graphics = provider.CreateGraphics(new GraphicsCreateInfo() { });
 
 			// Create swapchain and get the array of images
-			using ISwapchain swapchain = graphicsProvider.CreateSwapchain(graphics, new SwapchainCreateInfo() {
+			using ISwapchain swapchain = provider.CreateSwapchain(graphics, new SwapchainCreateInfo() {
 				ImageUsage = TextureUsage.TransferDst | TextureUsage.ColorAttachment,
 				PresentMode = SwapchainPresentMode.FIFO,
 				PresentWindow = window
 			});
+
+			ImGuiCoreRender.Init(graphics, new ImGuiCoreRenderInfo() {
+				InitialLayout = TextureLayout.Undefined,
+				FinalLayout = TextureLayout.PresentSrc,
+				FramebufferFormat = swapchain.Format,
+				PreserveFramebuffer = false
+			});
+
 			var swapchainImages = swapchain.Images;
 			ITextureView[] swapchainTextureViews = new ITextureView[swapchainImages.Length];
 			IFramebuffer[] framebuffers = new IFramebuffer[swapchainImages.Length];
 			bool disposeSwapchainResources = false;
 
-			// Create render pass
-			RenderPassCreateInfo renderPassInfo = new() {
-				Attachments = new RenderPassAttachment[] {
-					new RenderPassAttachment() {
-						InitialLayout = TextureLayout.Undefined,
-						FinalLayout = TextureLayout.PresentSrc,
-						Format = swapchain.Format,
-						Samples = 1,
-						LoadOp = AttachmentLoadOp.Clear,
-						StoreOp = AttachmentStoreOp.Store,
-						StencilLoadOp = AttachmentLoadOp.DontCare,
-						StencilStoreOp = AttachmentStoreOp.DontCare
-					}
-				},
-				Subpasses = new RenderPassSubpass[] {
-					new RenderPassSubpass() {
-						ColorAttachments = new RenderPassAttachmentReference[] {
-							new RenderPassAttachmentReference() {
-								Attachment = 0,
-								Layout = TextureLayout.ColorAttachment
-							}
-						}
-					}
-				}
-			};
-			using IRenderPass renderPass = graphics.CreateRenderPass(renderPassInfo);
-			
 			if (swapchain.ImageType == SwapchainImageType.Framebuffer) framebuffers = swapchainImages.Cast<IFramebuffer>().ToArray();
 			else {
 				// Create swapchain texture views
@@ -115,7 +70,7 @@ namespace Tesseract.Tests {
 				FramebufferCreateInfo framebufferInfo = new() {
 					Layers = 1,
 					Attachments = null!,
-					RenderPass = renderPass,
+					RenderPass = ImGuiCoreRender.RenderPass,
 					Size = swapchain.Size
 				};
 				for (int i = 0; i < swapchainImages.Length; i++) framebuffers[i] = graphics.CreateFramebuffer(framebufferInfo with { Attachments = new ITextureView[] { swapchainTextureViews[i] } });
@@ -123,13 +78,12 @@ namespace Tesseract.Tests {
 				disposeSwapchainResources = true;
 			}
 
+			ImGuiCoreInput.Init(inputSystem, window, windowSystem);
+
 			// Create semaphores
 			var semaphoreCreateInfo = new SyncCreateInfo() { Direction = SyncDirection.GPUToGPU, Features = SyncFeatures.GPUWorkSignaling | SyncFeatures.GPUWorkWaiting, Granularity = SyncGranularity.CommandBuffer };
 			using ISync semaphoreImage = graphics.CreateSync(semaphoreCreateInfo); // Swapchain Image Ready -> Command Submission
 			using ISync semaphoreReady = graphics.CreateSync(semaphoreCreateInfo); // Command Submission -> Swapchain Present
-			// Create fence
-			var fenceCreateInfo = new SyncCreateInfo() { Direction = SyncDirection.GPUToHost, Features = SyncFeatures.GPUWorkSignaling | SyncFeatures.HostWaiting, Granularity = SyncGranularity.CommandBuffer };
-			ISync? fenceCompleted = null; // Signaled when commands finish execution GPU-side (cannot reset the buffer until then!)
 
 			// Allocate command buffer and containing array
 			ICommandBuffer? commandBuffer = null;
@@ -145,36 +99,25 @@ namespace Tesseract.Tests {
 				SignalSync = new ISync[] { semaphoreReady }
 			};
 
+			ImGuiDiagnosticState state = new();
+
 			while (!window.Closing) {
 				// Get the next image from the swaphchain
 				int imageIndex = swapchain.BeginFrame(semaphoreImage);
 				var framebuffer = framebuffers[imageIndex];
 
-				// If recording to a buffer
-				if (commandBuffer != null) {
-					// Wait until the commands have completed before we start reusing the buffer
-					if (fenceCompleted != null) {
-						fenceCompleted.HostWait(ulong.MaxValue);
-						fenceCompleted.HostReset();
-					}
+				ImGuiCoreInput.NewFrame();
+				ImGuiCoreRender.NewFrame();
+				GImGui.NewFrame();
 
-					// Record commands into the buffer
-					var cmd = commandBuffer.BeginRecording();
-					TestDraw(framebuffer, renderPass, cmd);
-					commandBuffer.EndRecording();
+				state.Render();
 
-					// Create the completion fence if it doesn't already exist
-					if (fenceCompleted == null) {
-						fenceCompleted = graphics.CreateSync(fenceCreateInfo);
-						submitInfo = submitInfo with { SignalSync = new ISync[] { semaphoreReady, fenceCompleted } };
-					}
+				GImGui.Render();
 
-					// Submit the commands to the GPU
-					graphics.SubmitCommands(submitInfo with { CommandBuffer = commandBuffers });
-				} else {
-					// Else just run the commands directly
-					graphics.RunCommands(cmd => TestDraw(framebuffer, renderPass, cmd), CommandBufferUsage.Graphics, submitInfo);
-				}
+				state.MarkBeginRendering();
+				ImGuiCoreRender.RenderDrawData(GImGui.GetDrawData(), framebuffer, submitInfo);
+				graphics.WaitIdle();
+				state.MarkEndRendering();
 
 				// Submit the frame for presentation
 				swapchain.EndFrame(null, semaphoreReady);
@@ -186,20 +129,20 @@ namespace Tesseract.Tests {
 
 			graphics.WaitIdle();
 
-			fenceCompleted?.Dispose();
 			commandBuffer?.Dispose();
 
 			if (disposeSwapchainResources) {
 				foreach (IFramebuffer framebuffer in framebuffers) framebuffer.Dispose();
 				foreach (ITextureView texView in swapchainTextureViews) texView.Dispose();
 			}
+
+			ImGuiCoreRender.Shutdown();
+			GImGui.DestroyContext();
 		}
 
-		private static void TestVulkan() {
-			// Service registration
+		private static void TestImGuiVulkan() {
 			GLFWVKServices.Register();
 
-			// Window system creation
 			IInputSystem inputSystem = new GLFWServiceInputSystem();
 			IWindowSystem windowSystem = new GLFWServiceWindowSystem();
 			using IWindow window = windowSystem.CreateWindow("Test", 800, 600, new WindowAttributeList() {
@@ -207,52 +150,51 @@ namespace Tesseract.Tests {
 				{ VulkanWindowAttributes.VulkanWindow, true }
 			});
 
-			// Context creation
 			using IGraphicsEnumerator graphicsEnumerator = VulkanGraphicsEnumerator.GetEnumerator(
 				new GraphicsEnumeratorCreateInfo() {
+#if DEBUG
 					EnableDebugExtensions = true,
-					Window = window,
-					ExtendedInfo = new IExtendedGraphicsEnumeratorInfo[] {
-						new VulkanExtendedGraphicsEnumeratorInfo() {
-							ApplicationName = "Test",
-							ApplicationVersion = VK10.MakeApiVersion(0, 1, 0, 0),
-							EngineName = "Test",
-							EngineVersion = VK10.MakeApiVersion(0, 1, 0, 0)
-						}
-					}
+#endif
+					Window = window
 				}
 			);
 
-			TestImpl(graphicsEnumerator, inputSystem, window);
+			TestImGuiImpl(graphicsEnumerator, inputSystem, window, windowSystem);
 		}
 
-		private static void TestGL() {
-			// Service registration
+		private static void TestImGuiGL() {
 			GLFWGLServices.Register();
 
-			// Window system creation
 			IInputSystem inputSystem = new GLFWServiceInputSystem();
 			IWindowSystem windowSystem = new GLFWServiceWindowSystem();
 			using IWindow window = windowSystem.CreateWindow("Test", 800, 600, new WindowAttributeList() {
 				{ WindowAttributes.Resizable, false },
 				{ GLWindowAttributes.OpenGLWindow, true },
+#if DEBUG
 				{ GLWindowAttributes.DebugContext, true },
+#else
+				{ GLWindowAttributes.NoError, true },
+#endif
 				{ GLWindowAttributes.ContextVersionMajor, 4 },
 				{ GLWindowAttributes.ContextVersionMinor, 5 },
 				{ GLWindowAttributes.ContextProfile, GLProfile.Core }
 			});
 
-			// Context creation
 			using IGraphicsEnumerator graphicsEnumerator = GLGraphicsEnumerator.GetEnumerator(
 				new GraphicsEnumeratorCreateInfo() {
+#if DEBUG
 					EnableDebugExtensions = true,
+#endif
 					Window = window
 				}
 			);
 
-			TestImpl(graphicsEnumerator, inputSystem, window);
+			TestImGuiImpl(graphicsEnumerator, inputSystem, window, windowSystem);
 		}
 
+		public static void TestCoreImGuiSDLVulkan() => TestGLFW.RunWithGLFW(TestImGuiVulkan);
+
+		public static void TestCoreImGuiSDLGL() => TestGLFW.RunWithGLFW(TestImGuiGL);
 
 	}
 
