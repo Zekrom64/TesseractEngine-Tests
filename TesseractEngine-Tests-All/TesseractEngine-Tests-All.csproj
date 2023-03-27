@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\atlas.jpg" />
     <None Remove="Shaders\main.frag" />
     <None Remove="Shaders\main.frag.spv" />
     <None Remove="Shaders\main.vert" />
@@ -15,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Resources\atlas.jpg" />
     <EmbeddedResource Include="Shaders\main.frag" />
     <EmbeddedResource Include="Shaders\main.frag.spv" />
     <EmbeddedResource Include="Shaders\main.vert" />

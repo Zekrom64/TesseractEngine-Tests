@@ -38,7 +38,7 @@ namespace Tesseract.Tests {
 
 		private bool firstFrame = true;
 
-		public void Render() {
+		public virtual void Render() {
 			// Append the previous render duration
 			durationBuf.AsSpan()[1..].CopyTo(durationBuf);
 			durationBuf[^1] = lastRenderDuration;
