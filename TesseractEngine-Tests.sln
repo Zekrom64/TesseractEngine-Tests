@@ -18,6 +18,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TesseractEngine-ImGui", "TesseractEngine\TesseractEngine-ImGui\TesseractEngine-ImGui.csproj", "{43877B59-F41A-408C-8719-F14574BAC3AB}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TesseractEngine-ImGui-CLI", "TesseractEngine\TesseractEngine-ImGui-CLI\TesseractEngine-ImGui-CLI.vcxproj", "{A2941801-C897-4DBF-9774-B6F193521427}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E85F018B-04B6-41A3-86F8-120360B8D6E7} = {E85F018B-04B6-41A3-86F8-120360B8D6E7}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TesseractEngine-ImGui-SDL2", "TesseractEngine\TesseractEngine-ImGui-SDL2\TesseractEngine-ImGui-SDL2.csproj", "{A70FD749-BE17-4934-AD2A-789006F15A13}"
 EndProject
