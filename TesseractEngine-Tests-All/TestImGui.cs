@@ -38,6 +38,14 @@ namespace Tesseract.Tests {
 
 		private bool firstFrame = true;
 
+		protected virtual void RenderMenuWindows() {
+			var im = GImGui.Instance;
+			if (im.MenuItem("Show About"u8)) showAbout = true;
+			if (im.MenuItem("Show Demo"u8)) showDemo = true;
+			if (im.MenuItem("Show Metrics"u8)) showMetrics = true;
+			if (im.MenuItem("Show Diagnostics"u8)) showDiags = true;
+		}
+
 		public virtual void Render() {
 			// Append the previous render duration
 			durationBuf.AsSpan()[1..].CopyTo(durationBuf);
@@ -71,10 +79,7 @@ namespace Tesseract.Tests {
 			// Generate the main menu bar
 			if (im.BeginMainMenuBar()) {
 				if (im.BeginMenu("Windows"u8)) {
-					if (im.MenuItem("Show About"u8)) showAbout = true;
-					if (im.MenuItem("Show Demo"u8)) showDemo = true;
-					if (im.MenuItem("Show Metrics"u8)) showMetrics = true;
-					if (im.MenuItem("Show Diagnostics"u8)) showDiags = true;
+					RenderMenuWindows();
 					im.EndMenu();
 				}
 				im.EndMainMenuBar();

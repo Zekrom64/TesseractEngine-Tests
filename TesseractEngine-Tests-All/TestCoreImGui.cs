@@ -185,26 +185,33 @@ namespace Tesseract.Tests {
 		}
 
 		private int imageCount = 400;
+		private bool showLoadGen = false;
+
+		protected override void RenderMenuWindows() {
+			base.RenderMenuWindows();
+			if (GImGui.Instance.MenuItem("Show Load Generator"u8)) showLoadGen = true;
+		}
 
 		public override void Render() {
 			base.Render();
 
 			var im = GImGui.Instance;
 
-			im.Begin("Load Generator"u8);
-			im.Text($"Renderer: {rendererName}");
-			im.Text($"Stopwatch Freq. (Hz): {Stopwatch.Frequency}");
-			im.Text($"Stopwatch Is High Resolution: {Stopwatch.IsHighResolution}");
-			im.DragInt("Image Count"u8, ref imageCount, vMin: 0, vMax: 1024);
+			if (showLoadGen && im.Begin("Load Generator"u8, ref showLoadGen)) {
+				im.Text($"Renderer: {rendererName}");
+				im.Text($"Stopwatch Freq. (Hz): {Stopwatch.Frequency}");
+				im.Text($"Stopwatch Is High Resolution: {Stopwatch.IsHighResolution}");
+				im.DragInt("Image Count"u8, ref imageCount, vMin: 0, vMax: 1024);
 
-			Random random = new(0);
+				Random random = new(0);
 
-			for(int i = 0; i < imageCount; i++) {
-				if ((i % 16) != 0) im.SameLine();
-				im.Image(textureIDs[random.Next(16)], new Vector2(16, 16));
+				for (int i = 0; i < imageCount; i++) {
+					if ((i % 16) != 0) im.SameLine();
+					im.Image(textureIDs[random.Next(16)], new Vector2(16, 16));
+				}
+
+				im.End();
 			}
-
-			im.End();
 		}
 
 		public void Dispose() {
