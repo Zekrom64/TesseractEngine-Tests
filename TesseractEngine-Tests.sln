@@ -44,6 +44,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Engine", "Engine", "{3AFEDD
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TesseractEngine-ImGui-Core", "TesseractEngine\TesseractEngine-ImGui-Core\TesseractEngine-ImGui-Core.csproj", "{E85F018B-04B6-41A3-86F8-120360B8D6E7}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TesseractEngine-LMDB", "TesseractEngine\TesseractEngine-LMDB\TesseractEngine-LMDB.csproj", "{1CE9ED64-568B-4783-AD19-23397FB4F661}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -270,6 +272,18 @@ Global
 		{E85F018B-04B6-41A3-86F8-120360B8D6E7}.Release|x64.Build.0 = Release|Any CPU
 		{E85F018B-04B6-41A3-86F8-120360B8D6E7}.Release|x86.ActiveCfg = Release|Any CPU
 		{E85F018B-04B6-41A3-86F8-120360B8D6E7}.Release|x86.Build.0 = Release|Any CPU
+		{1CE9ED64-568B-4783-AD19-23397FB4F661}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CE9ED64-568B-4783-AD19-23397FB4F661}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CE9ED64-568B-4783-AD19-23397FB4F661}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{1CE9ED64-568B-4783-AD19-23397FB4F661}.Debug|x64.Build.0 = Debug|Any CPU
+		{1CE9ED64-568B-4783-AD19-23397FB4F661}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1CE9ED64-568B-4783-AD19-23397FB4F661}.Debug|x86.Build.0 = Debug|Any CPU
+		{1CE9ED64-568B-4783-AD19-23397FB4F661}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CE9ED64-568B-4783-AD19-23397FB4F661}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CE9ED64-568B-4783-AD19-23397FB4F661}.Release|x64.ActiveCfg = Release|Any CPU
+		{1CE9ED64-568B-4783-AD19-23397FB4F661}.Release|x64.Build.0 = Release|Any CPU
+		{1CE9ED64-568B-4783-AD19-23397FB4F661}.Release|x86.ActiveCfg = Release|Any CPU
+		{1CE9ED64-568B-4783-AD19-23397FB4F661}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -291,6 +305,7 @@ Global
 		{DC71F06C-E79D-4415-9C90-3525F9CBFF49} = {3AFEDDFA-D207-4CDD-A6AD-6832BD8B0A83}
 		{EE4A06C0-221C-4BC3-BC18-C93C248E615B} = {3AFEDDFA-D207-4CDD-A6AD-6832BD8B0A83}
 		{E85F018B-04B6-41A3-86F8-120360B8D6E7} = {3AFEDDFA-D207-4CDD-A6AD-6832BD8B0A83}
+		{1CE9ED64-568B-4783-AD19-23397FB4F661} = {3AFEDDFA-D207-4CDD-A6AD-6832BD8B0A83}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3E346340-2F67-49B9-8F01-6B012C57586E}

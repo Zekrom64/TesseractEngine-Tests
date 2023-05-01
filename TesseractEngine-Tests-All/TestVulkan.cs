@@ -20,7 +20,12 @@ namespace Tesseract.Tests {
 		private class GLFWVulkanLoader : IVKLoader {
 
 			public IntPtr GetVKProcAddress(string name) {
-				return GLFW3.Functions.glfwGetInstanceProcAddress(IntPtr.Zero, name);
+				Span<byte> str = MemoryUtil.StackallocUTF8(name, stackalloc byte[1024]);
+				unsafe {
+					fixed (byte* pstr = str) {
+						return GLFW3.Functions.glfwGetInstanceProcAddress(IntPtr.Zero, (IntPtr)pstr);
+					}
+				}
 			}
 
 		}
@@ -60,8 +65,10 @@ namespace Tesseract.Tests {
 		}
 
 		private static VKSurfaceKHR CreateSurface(VKInstance instance, GLFWWindow window) {
-			VK.CheckError((VKResult)GLFW3.Functions.glfwCreateWindowSurface(instance, window.Window, IntPtr.Zero, out ulong surface), "Failed to create window surface");
-			return new VKSurfaceKHR(instance, surface, null);
+			unsafe {
+				VK.CheckError((VKResult)GLFW3.Functions.glfwCreateWindowSurface(instance, window.Window, IntPtr.Zero, out ulong surface), "Failed to create window surface");
+				return new VKSurfaceKHR(instance, surface, null);
+			}
 		}
 
 		private static VKDevice CreateDevice(VKInstance instance, VKSurfaceKHR surface, out VKPhysicalDevice physicalDevice, out VKQueue queue, out int queueFamily) {

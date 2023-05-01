@@ -112,8 +112,12 @@ namespace Tesseract.Tests {
 	public static class TestImGui {
 
 		public static void TestSDL() => Tests.TestSDL.RunWithSDL(() => {
-			(SDLWindow window, SDLRenderer renderer) = SDL2.CreateWindowAndRenderer(800, 600, SDLWindowFlags.Shown | SDLWindowFlags.Resizable);
-			window.Title = "Test";
+			SDLWindow window = new("Test", SDL2.WindowPosCentered, SDL2.WindowPosCentered, 800, 600, SDLWindowFlags.Shown | SDLWindowFlags.Resizable);
+
+			var renderDrivers = SDL2.RenderDrivers;
+			int driverIndex = Array.FindIndex(renderDrivers, driver => driver.NameStr.Contains("direct3d11"));
+
+			SDLRenderer renderer = window.CreateRenderer(driverIndex, SDLRendererFlags.Accelerated);
 
 			GImGui.Instance = new ImGuiCLI();
 			GImGui.CurrentContext = GImGui.CreateContext();
@@ -169,14 +173,16 @@ namespace Tesseract.Tests {
 
 		public static void TestGL45() => Tests.TestSDL.RunWithSDL(() => {
 			SDLWindow window = new("Test", SDL2.WindowPosCentered, SDL2.WindowPosCentered, 800, 600, SDLWindowFlags.Shown | SDLWindowFlags.Resizable | SDLWindowFlags.OpenGL);
-			SDL2.Functions.SDL_GL_SetAttribute(SDLGLAttr.ContextMajorVersion, 4);
-			SDL2.Functions.SDL_GL_SetAttribute(SDLGLAttr.ContextMinorVersion, 5);
-			SDL2.Functions.SDL_GL_SetAttribute(SDLGLAttr.ContextProfileMask, (int)SDLGLProfile.Core);
+			unsafe {
+				SDL2.Functions.SDL_GL_SetAttribute(SDLGLAttr.ContextMajorVersion, 4);
+				SDL2.Functions.SDL_GL_SetAttribute(SDLGLAttr.ContextMinorVersion, 5);
+				SDL2.Functions.SDL_GL_SetAttribute(SDLGLAttr.ContextProfileMask, (int)SDLGLProfile.Core);
 #if DEBUG
-			SDL2.Functions.SDL_GL_SetAttribute(SDLGLAttr.ContextFlags, (int)SDLGLContextFlag.DebugFlag);
+				SDL2.Functions.SDL_GL_SetAttribute(SDLGLAttr.ContextFlags, (int)SDLGLContextFlag.DebugFlag);
 #else
-			SDL2.Functions.SDL_GL_SetAttribute(SDLGLAttr.ContextNoError, 1);
+				SDL2.Functions.SDL_GL_SetAttribute(SDLGLAttr.ContextNoError, 1);
 #endif
+			}
 			IGLContext glctx = new SDLGLContext(window);
 			GL gl = new(glctx);
 			GL45 gl45 = gl.GL45!;

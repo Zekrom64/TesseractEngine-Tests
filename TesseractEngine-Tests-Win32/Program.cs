@@ -17,10 +17,8 @@ namespace Tesseract.Tests {
 		}
 
 		private static void TestDXCore() {
-			using MemoryStack sp = MemoryStack.Push();
 			var adapterFactory = DXCore.CreateAdapterFactory<IDXCoreAdapterFactory>();
-			var adapterAttribs = sp.Values(DXCore.AttributeD3D12Graphics);
-			var adapterList = COMHelpers.GetObjectFromCOMGetter<IDXCoreAdapterList>((in Guid riid) => adapterFactory.CreateAdapterList((uint)adapterAttribs.ArraySize, adapterAttribs.Ptr, riid))!;
+			var adapterList = adapterFactory.CreateAdapterList<IDXCoreAdapterList>(stackalloc Guid[] { DXCore.AttributeD3D12Graphics });
 			Console.WriteLine($"[DXCore Raw] # of adapters: {adapterList.GetAdapterCount()}");
 
 			Span<bool> pHwd = stackalloc bool[1];
@@ -28,9 +26,9 @@ namespace Tesseract.Tests {
 			uint nadapters = adapterList.GetAdapterCount();
 			for (uint i = 0; i < nadapters; i++) {
 				Console.WriteLine($"[DXCore Raw] Adapter #{i}");
-				var adapter = COMHelpers.GetObjectFromCOMGetter<IDXCoreAdapter>((in Guid riid) => adapterList.GetAdapter(i, riid))!;
+				var adapter = adapterList.GetAdapter<IDXCoreAdapter>((int)i);
 				if (adapter.IsPropertySupported(DXCoreAdapterProperty.DriverDescription)) {
-					nuint szDesc = adapter.GetPropertySize(DXCoreAdapterProperty.DriverDescription);
+					adapter.GetPropertySize(DXCoreAdapterProperty.DriverDescription, out nuint szDesc);
 					using ManagedPointer<byte> pDesc = new((int)szDesc);
 					adapter.GetProperty(DXCoreAdapterProperty.DriverDescription, (uint)pDesc.ArraySize, pDesc.Ptr);
 					Console.WriteLine($"[DXCore Raw]     DriverDescription={MemoryUtil.GetUTF8(pDesc.Span)}");
