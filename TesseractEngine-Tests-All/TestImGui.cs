@@ -93,8 +93,8 @@ namespace Tesseract.Tests {
 			// Diagnostics window
 			if (showDiags && im.Begin("Diagnostics"u8, ref showDiags)) {
 				im.Text($"Render Time: {totalTimeMicrosec:N2} uS");
-				im.PlotLines("Render Time Plot (Fast)"u8, durations, scaleMin: 0, scaleMax: 1000);
-				im.PlotLines("Render Time Plot (Slow)"u8, longDurationBuf, scaleMin: 0, scaleMax: 1000);
+				im.PlotLines("Render Time Plot (Fast)"u8, durations, scaleMin: 0, scaleMax: 2000);
+				im.PlotLines("Render Time Plot (Slow)"u8, longDurationBuf, scaleMin: 0, scaleMax: 2000);
 				im.Text($"Best Render Time: {bestTime:N2} uS");
 				im.Text($"Worst Render Time: {worstTime:N2} uS");
 				im.End();
