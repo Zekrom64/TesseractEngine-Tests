@@ -13,7 +13,7 @@ using Tesseract.GLFW;
 using Tesseract.Vulkan.Services.Objects;
 using Tesseract.Vulkan.Services;
 using System.Threading;
-using Tesseract.CLI.ImGui;
+using Tesseract.ImGui.NET;
 using Tesseract.ImGui.Core;
 using Tesseract.ImGui;
 using System.Diagnostics;
@@ -224,7 +224,7 @@ namespace Tesseract.Tests {
 	public static class TestCoreImGui {
 
 		private static void TestImGuiImpl(IGraphicsEnumerator enumerator, IInputSystem inputSystem, IWindow window, IWindowSystem windowSystem) {
-			GImGui.Instance = new ImGuiCLI();
+			GImGui.Instance = new ImGuiNETCore();
 			GImGui.CurrentContext = GImGui.CreateContext();
 
 			var provider = enumerator.EnumerateProviders().First();

@@ -9,7 +9,7 @@ using Tesseract.SDL.Services;
 using Tesseract.ImGui;
 using Tesseract.ImGui.SDL;
 using Tesseract.ImGui.OpenGL;
-using Tesseract.CLI.ImGui;
+using Tesseract.ImGui.NET;
 using Tesseract.Core.Numerics;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
@@ -119,7 +119,7 @@ namespace Tesseract.Tests {
 
 			SDLRenderer renderer = window.CreateRenderer(driverIndex, SDLRendererFlags.Accelerated);
 
-			GImGui.Instance = new ImGuiCLI();
+			GImGui.Instance = new ImGuiNETCore();
 			GImGui.CurrentContext = GImGui.CreateContext();
 
 			ImGuiSDL2.Init(window, renderer);
@@ -187,7 +187,7 @@ namespace Tesseract.Tests {
 			GL gl = new(glctx);
 			GL45 gl45 = gl.GL45!;
 
-			GImGui.Instance = new ImGuiCLI();
+			GImGui.Instance = new ImGuiNETCore();
 			GImGui.CurrentContext = GImGui.CreateContext();
 
 			ImGuiSDL2.Init(window, null);

@@ -5,7 +5,7 @@ using System.Numerics;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Tesseract.CLI.ImGui;
+using Tesseract.ImGui.NET;
 using Tesseract.Core.Collections;
 using Tesseract.Core.Graphics;
 using Tesseract.Core.Graphics.Accelerated;
